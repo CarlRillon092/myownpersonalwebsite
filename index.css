@@ -1,0 +1,81 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: monospace;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1em;
+            font-size: 1.2em;
+        }
+        nav a:hover {
+            color: #00bcd4;
+        }
+        .content {
+            margin-top: 30px;
+            padding: 2em;
+            text-align: center;
+            color: blue;
+            height: 100%;
+        }
+        .animated-bg {
+            animation: slide 15s infinite alternate;
+            background-size: cover;
+            background-position: top;
+            height: 180%;
+        }
+        @keyframes slide {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .gallery-container {
+            position: relative;
+            width: 360px;
+            height: 480px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+        .gallery-images {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .gallery-images img {
+            width: 360px;
+            height: 480px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .gallery-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 2em;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 100;
+        }
+        .gallery-button-left {
+            left: 10px;
+        }
+        .gallery-button-right {
+            right: 10px;
+        }

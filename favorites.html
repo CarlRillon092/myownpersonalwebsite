@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorites</title>
+	<link rel="icon" type="image/x-icon" href="images/icon.ico">
+	<link rel="stylesheet" href="favorites.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="resume.html">My Resume</a>
+        <a href="family.html">My Family</a>
+        <a href="favorites.html">My Favorites</a>
+    </nav>
+
+
+
+    <!-- Favorite Games Section -->
+    <div class="section" id="favorite-games">
+		<br></br>
+        <h1>Favorite Games</h1>
+        <!-- Thumbnails -->
+        <img src="images/game1-thumbnail.jpg" class="thumbnail" onclick="openGallery(0, 'games')" alt="Game 1">
+        <img src="images/game2-thumbnail.jpg" class="thumbnail" onclick="openGallery(1, 'games')" alt="Game 2">
+		<img src="images/game3-thumbnail.jpg" class="thumbnail" onclick="openGallery(2, 'games')" alt="Game 3">
+		<img src="images/game4-thumbnail.jpg" class="thumbnail" onclick="openGallery(3, 'games')" alt="Game 4">
+		<img src="images/game5-thumbnail.png" class="thumbnail" onclick="openGallery(4, 'games')" alt="Game 5">
+    </div>
+
+    <!-- Favorite Movies Section -->
+    <div class="section" id="favorite-movies">
+        <h2>Favorite Anime/Movies</h2>
+        <!-- Thumbnails -->
+        <img src="images/movie1-thumbnail.jpg" class="thumbnail" onclick="openGallery(0, 'movies')" alt="Movie 1">
+        <img src="images/movie2-thumbnail.jpg" class="thumbnail" onclick="openGallery(1, 'movies')" alt="Movie 2">
+        <img src="images/movie3-thumbnail.jpg" class="thumbnail" onclick="openGallery(2, 'movies')" alt="Movie 3">
+        <img src="images/movie4-thumbnail.jpg" class="thumbnail" onclick="openGallery(3, 'movies')" alt="Movie 4">
+    </div>
+
+    <!-- Gallery Modal -->
+    <div class="gallery" id="gallery">
+        <span class="close" onclick="closeGallery()">&times;</span>
+        <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
+        <span class="next" onclick="changeSlide(1)">&#10095;</span>
+        <div class="gallery-content">
+            <img id="gallery-image" src="" alt="" style="display: none;">
+            <video id="gallery-video" controls style="display: none;"></video>
+            <p id="gallery-caption"></p>
+        </div>
+    </div>
+	
+    <script>
+        const galleryData = {
+            games: [
+                [
+                    { src: "images/game1-1.jpg", caption: "I liked Cookie Run: Kingdom because of its rich main storyline that was getting constant updates, as well a section called: 'Special Episodes' to know about the characters more.", type: "image" },
+                    { src: "images/game1-2.jpg", caption: "Gameplay-wise, it's okay, since it was already mentioned that you can play it in idle or manually. And besides you can always see their skills in action.", type: "image" },
+					{ src: "images/game1-3.jpg", caption: "Moreover, it was a management game, where you can manage your kingdom, your kingdom's resources, designing your kingdom, and also trading.", type: "image" }
+                ],	
+                [
+                    { src: "images/game2-1.jpg", caption: "I liked Minecraft, it combined sandbox building, crafting, exploration, and adventure elements in a unique way that appealed to a wide audience, especially me.", type: "image" },
+                    { src: "images/game2-2.jpg", caption: "Moreover,it gave me the freedom to create and explore my own virtual worlds, while also providing a range of challenges and rewards.", type: "image" }
+                ],
+                [
+                    { src: "images/game3-1.jpg", caption: "I liked Call of Duty, especially Modern Warfare 2 (2009), since its graphics still hold up today, the gameplay is filled with action and thrill and the story is almost perfect,as if it felt the horrors of what war is like.", type: "image" },
+                    { src: "images/game3-2.jpg", caption: "'Remember, no Russians'. Is one of my favorite quotes by Makarov, one of the antagonists of the game, in the mission 'No Russians' before blasting off in this airport, leading to one the most controversial missions ever made.", type: "image" }
+                ],
+                [
+                    { src: "images/game4-1.jpg", caption: "(Graphic Warning: Blood) I liked this game since can you play as a wide variety of characters and know about them while trying to escape a haunted school after a friendship forever ritual gone wrong.", type: "image" },
+                    { src: "images/game4-2.jpg", caption: "The game is a survival horror advemture RPG, where you have to solve puzzles, discover the mysteries behind the school, all while trying to escape. Be wary, for one wrong move means death for you.", type: "image" }
+                ],
+                [
+                    { src: "images/game5-1.jpg", caption: "Since Pokemon had way too many versions, I decided to choose Fire Red Version, since that was the first game/version I was in introduced to Pokemon as a whole.", type: "image" },
+                    { src: "images/game5-2.jpg", caption: "The game is an RPG, adventure monster-catching game where you catch Pokemon to train and fight. You can play it in your own pace, whether you want to be the champion, or, like everybody says: Gotta catch 'em all.", type: "image" }
+                ]
+            ],
+            movies: [
+                [
+                    { src: "videos/Kono.mp4", caption: "I liked Jojo's Bizzare Adventure because of absurd humor, stylish art, compelling characters, along with the birth of multiple memes, just like this clip of where the infamous 'Kono DiO Da!' was introduced.", type: "video" }
+                ],
+                [
+                    { src: "videos/snippet.mp4", caption: "Having wishes was nice. Also I liked the movie so much, and was my favorite Pokemon Movie next to Latias and Latios.", type: "video" }
+                ],
+                [
+                    { src: "videos/videoplayback.mp4", caption: "The first Studio Ghibli I ever watched, and was part of my childhood..", type: "video" }
+                ],
+                [
+                    { src: "videos/grave.mp4", caption: "This movie made me cry when I rewatched it last month, since I know about this movie since childhood, and woke my eyes to the horrors of war.", type: "video" }
+                ]
+            ]
+        };
+
+        let currentSlide = 0;
+        let currentCategory = "";
+        let currentSubCategory = 0;
+
+        function openGallery(index, category) {
+            currentSlide = 0;
+            currentCategory = category;
+            currentSubCategory = index;
+            document.getElementById('gallery').style.display = 'flex';
+            updateGallery();
+        }
+
+        function closeGallery() {
+            document.getElementById('gallery').style.display = 'none';
+            const video = document.getElementById('gallery-video');
+            video.pause();
+            video.style.display = 'none';
+            document.getElementById('gallery-image').style.display = 'none';
+        }
+
+        function changeSlide(direction) {
+            const data = galleryData[currentCategory][currentSubCategory];
+            currentSlide = (currentSlide + direction + data.length) % data.length;
+            updateGallery();
+        }
+
+        function updateGallery() {
+            const data = galleryData[currentCategory][currentSubCategory][currentSlide];
+            const image = document.getElementById('gallery-image');
+            const video = document.getElementById('gallery-video');
+            const caption = document.getElementById('gallery-caption');
+
+            if (data.type === "image") {
+                video.style.display = 'none';
+                video.pause();
+                image.src = data.src;
+                image.style.display = 'block';
+            } else if (data.type === "video") {
+                image.style.display = 'none';
+                video.src = data.src;
+                video.style.display = 'block';
+                video.load(); // Ensures the video loads correctly
+                video.play();
+            }
+            caption.textContent = data.caption;
+        }
+    </script>
+</body>
+</html>

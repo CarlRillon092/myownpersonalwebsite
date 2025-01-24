@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Myself</title>
+	<link rel="icon" type="image/x-icon" href="images/icon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1em;
+            font-size: 1.2em;
+        }
+        nav a:hover {
+            color: #00bcd4;
+        }
+        .content {
+            margin-top: 30px;
+            padding: 2em;
+            text-align: center;
+            color: blue;
+            height: 100%;
+        }
+        .animated-bg {
+            animation: slide 15s infinite alternate;
+            background-size: cover;
+            background-position: top;
+            height: 180%;
+        }
+        @keyframes slide {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .gallery-container {
+            position: relative;
+            width: 360px;
+            height: 480px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+        .gallery-images {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .gallery-images img {
+            width: 360px;
+            height: 480px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .gallery-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 2em;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 100;
+        }
+        .gallery-button-left {
+            left: 10px;
+        }
+        .gallery-button-right {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay loop>
+        <source src="videos/back.mp3" type="audio/mpeg">
+    </audio>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="resume.html">My Resume</a>
+        <a href="family.html">My Family</a>
+        <a href="favorites.html">My Favorites</a>
+    </nav>
+
+    <div class="content animated-bg" style="background-image: url('https://steamuserimages-a.akamaihd.net/ugc/1469813569889757200/B8CBE68BCA47164F7015715AEBEA8E1D8FC5FE5E/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true/1200');">
+        <h1>Welcome to my Website, Visitor!</h1>
+		<br></br>
+		<h2>About Myself</h2>
+        <p>Hello there. I'm Carl Edward B. Rillon. I was born in City of Manila, on Tondo. I'm currently studying in Cavite State University - Imus Campus and was studying in BSCS. Inside my website, you will find a lot about me, including my personal favorites, my personal resume, and about my family. </p>
+        <h2>Why I chose BSCS?</h2>
+        <p>I chose BSCS since I always wanted to learn how to program and code to pursue my career as an indie game developer, mainly because I was inspired by Toby Fox, creator of Undertale, which in turn became a huge success for him. I don't talk much often and had a bad habit of daydreaming, which I'm trying to manage up until now since it almost affected my academic performance. </p>
+        
+        <div class="gallery-container">
+            <div class="gallery-images">
+                <img src="slide/1.jpg" alt="This is me now">
+                <img src="slide/2.jpg" alt="This is me back then">
+                <img src="slide/thisisme.jpg" alt="Then again, a younger version of me">
+                <img src="slide/natan.jpg" alt="Then again, a younger version of me">
+            </div>
+            <span class="gallery-button gallery-button-left" onclick="moveSlide(-1)">&#10094;</span>
+            <span class="gallery-button gallery-button-right" onclick="moveSlide(1)">&#10095;</span>
+        </div>
+        
+        <p>To be honest, I haven't really changed much other than my appearance. I'm still the same person, each day, each month, each year.</p>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+
+        function moveSlide(step) {
+            const slides = document.querySelectorAll('.gallery-images img');
+            const totalSlides = slides.length;
+
+            currentSlide = (currentSlide + step + totalSlides) % totalSlides; // Ensures circular navigation
+
+            // Move the images in the gallery container
+            const galleryImages = document.querySelector('.gallery-images');
+            galleryImages.style.transform = `translateX(-${currentSlide * 360}px)`;
+        }
+    </script>
+</body>
+</html>
